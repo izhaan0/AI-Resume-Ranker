@@ -19,18 +19,6 @@ from app.config import get_settings
 from app.db.database import init_db
 from app.services.embedder import load_model
 from app.routers import resume, job
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-
-app = FastAPI()   # MUST come first
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # ── Logging ───────────────────────────────────────────────────────────────────
 
@@ -78,6 +66,11 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
+origins = [
+    "https://ai-resume-ranker-pearl.vercel.app",
+    "http://localhost:5173"
+]
+
 # ── CORS ──────────────────────────────────────────────────────────────────────
 
 app.add_middleware(
@@ -87,7 +80,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   # easiest fix for now
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # ── Global exception handler ──────────────────────────────────────────────────
 
