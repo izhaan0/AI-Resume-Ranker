@@ -19,17 +19,14 @@ from app.config import get_settings
 from app.db.database import init_db
 from app.services.embedder import load_model
 from app.routers import resume, job
-
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-origins = [
-    "http://localhost:5173",
-    "https://ai-resume-ranker-pearl.vercel.app"
-]
+app = FastAPI()   # MUST come first
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # for now allow everything
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
