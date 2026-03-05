@@ -266,9 +266,7 @@ async def parse_resume(
             job_titles=extract_job_titles(text),
         )
 
-        return {
-            "payload": response
-        }
+        return response
 
     finally:
         if temp_path:
